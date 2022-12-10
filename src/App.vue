@@ -12,7 +12,14 @@ axios({
   response.data.forEach((element) => {
     images.value.push(element);
   });
+ 
 });
+
+const removeImage=(i)=>{
+  
+    images.value.splice(i,1);
+     
+}
 
 </script>
 
@@ -21,11 +28,8 @@ axios({
     <div class="row">
       <div class="col-12">
         <div class="row">
-         
-           <Image v-for="(item,i) in images" :key="i" :customsrc="item.url"></Image>
           
-         
-          
+           <Image v-for="(item,i) in images" :key="item" :customsrc="item.url" @click="removeImage(i)"></Image>
 
         </div>
       </div>
