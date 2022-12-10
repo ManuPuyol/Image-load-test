@@ -1,5 +1,10 @@
-$rojo: red;
+$background: #30353a;
 
-.color {
-    background-color: $rojo !important;
+body {
+    background-color: $background !important;
+}
+h1{
+    color: white;
+    margin-top:2rem !important;
+    margin-bottom: 2rem !important;
 }
