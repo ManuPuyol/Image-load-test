@@ -1,36 +1,23 @@
 <script setup>
-import axios from "axios";
 import Image from "./Image.vue";
+import { loadImages,removeImage } from "../assets/tools";
 import { ref } from "vue";
 const images = ref([]);
 let loading = ref(true);
 let error = ref(false);
 
-//get images & push into an array
-const loadImages = () => {
-  axios({
-    method: "get",
-    url: "https://jsonplaceholder.typicode.com/photos",
-  })
-    .then(function (response) {
-      response.data.forEach((element) => {
-        images.value.push(element);
-      });
-      loading.value = false;
-      error.value = false;
-    })
-    .catch(() => {
-      error.value = true;
-      loading.value = false;
+loadImages(
+  (response) => {
+    response.data.forEach((element) => {
+      images.value.push(element);
     });
-};
-
-//remove item of index position
-const removeImage = (i) => {
-  images.value.splice(i, 1);
-};
-//calling function
-loadImages();
+    loading.value = false;
+    error.value = false;
+  },
+  (onerror) => {
+    error.value = true;
+  }
+);
 </script>
 
 <template>
@@ -54,7 +41,7 @@ loadImages();
             v-for="(item, i) in images"
             :key="item"
             :customsrc="item.url"
-            @click="removeImage(i)"
+            @click="removeImage(images,i)"
           ></Image>
         </div>
       </div>
